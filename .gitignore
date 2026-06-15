@@ -1,0 +1,10 @@
+node_modules
+dist
+*.local
+.DS_Store
+
+# Source/scratch media (the site only needs the optimized files in public/media)
+images/
+
+# Local Claude settings
+.claude/

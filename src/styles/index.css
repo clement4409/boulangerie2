@@ -1,0 +1,104 @@
+@import "./fonts.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* --- Day palette ------------------------------------------------------- */
+  :root {
+    color-scheme: light;
+    --page: 251 247 240; /* ivory  */
+    --surface: 247 241 232; /* cream  */
+    --card: 251 247 240;
+    --ink: 36 25 16; /* espresso */
+    --inksoft: 58 42 28; /* cocoa */
+    --inkmuted: 138 120 102;
+    --line: 36 25 16;
+    --scroll-track: 243 234 220;
+  }
+
+  /* --- "Ambiance four du soir" (night) ----------------------------------- */
+  .dark {
+    color-scheme: dark;
+    --page: 22 15 9; /* deep warm near-black */
+    --surface: 28 19 11;
+    --card: 38 27 16; /* warm oven brown */
+    --ink: 244 233 216; /* warm ivory text */
+    --inksoft: 214 196 170;
+    --inkmuted: 156 138 116;
+    --line: 245 233 216;
+    --scroll-track: 20 14 8;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-page font-body text-ink antialiased;
+    overflow-x: clip;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+
+  ::selection {
+    background: #d8a65b;
+    color: #241910;
+  }
+
+  /* Slim, warm scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgb(var(--scroll-track));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #c98a4b;
+    border-radius: 999px;
+    border: 2px solid rgb(var(--scroll-track));
+  }
+}
+
+@layer components {
+  .container-px {
+    @apply mx-auto w-full max-w-7xl px-6 sm:px-8;
+  }
+
+  .eyebrow {
+    @apply font-body text-[0.72rem] font-medium uppercase tracking-[0.32em] text-clay;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink px-8 py-3.5 font-body text-sm font-medium tracking-wide text-page transition-transform duration-300 ease-out hover:scale-[1.03] active:scale-100;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-ink/25 px-7 py-3.5 font-body text-sm font-medium tracking-wide text-ink transition-colors duration-300 hover:border-ink/60 hover:bg-ink/5;
+  }
+}
+
+/* Grain texture overlay helper */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
